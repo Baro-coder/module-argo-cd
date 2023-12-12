@@ -3,8 +3,17 @@ provider "kubernetes" {
   host                   = var.kubernetes_cluster_endpoint
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws-iam-authenticator"
-    args        = ["token", "-i", "${var.kubernetes_cluster_name}"]
+    command     = "aws"
+    args = [
+      "--region",
+      "${var.aws_region}",
+      "eks",
+      "get-token",
+      "--cluster-name",
+      "${var.kubernetes_cluster_name}",
+      "--output",
+      "json",
+    ]
   }
 }
 
@@ -14,8 +23,17 @@ provider "helm" {
     host                   = var.kubernetes_cluster_endpoint
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
-      command     = "aws-iam-authenticator"
-      args        = ["token", "-i", "${var.kubernetes_cluster_name}"]
+      command     = "aws"
+      args = [
+        "--region",
+        "${var.aws_region}",
+        "eks",
+        "get-token",
+        "--cluster-name",
+        "${var.kubernetes_cluster_name}",
+        "--output",
+        "json",
+      ]
     }
   }
 }
