@@ -1,3 +1,9 @@
+variable "aws_region" {
+  type        = string
+  default     = "eu-central-1"
+  description = "AWS region code"
+}
+
 variable "kubernetes_cluster_id" {
   type        = string
   description = "Kubernetes Cluster ID"
